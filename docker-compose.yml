@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  ai_backend:
+    build:
+      context: ./llmTranslationApp
+      dockerfile: Dockerfile
+    container_name: ai_backend
+    volumes:
+      - ./llmTranslationApp:/llmTranslationApp
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+  ollama:
+    container_name: ollama
+    image: ollama/ollama
+    entrypoint: ["/bin/sh", "/root/.ollama/run_ollama.sh"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama:/root/.ollama

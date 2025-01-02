@@ -1,0 +1,16 @@
+ai-translation-env/
+ollama/models/
+ollama/id_ed25519
+ollama/id_ed25519.pub
+
+llmTranslationApp/db.sqlite3
+
+.env
+
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# MacOS specific
+.DS_Store
