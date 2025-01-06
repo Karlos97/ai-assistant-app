@@ -16,6 +16,7 @@ import os
 
 # Determine the environment
 ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')  # 'development' or 'production'
+DEBUG = os.getenv('DEBUG', 'false')  # 'development' or 'production'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,18 +30,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='insecure-key-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = ENVIRONMENT == 'development'
+DEBUG = ENVIRONMENT == 'development' and DEBUG == 'true'
 
 if ENVIRONMENT == 'development':
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+    CORS_ALLOW_ALL_ORIGINS = True
 else:  # Production
     ALLOWED_HOSTS = ['portfolio.karlos97.pl']
-
-if ENVIRONMENT == 'development':
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:4173",  # Frontend in development
-    ]
-else:  # Production
     CORS_ALLOWED_ORIGINS = [
         "https://portfolio.karlos97.pl",
     ]

@@ -15,7 +15,7 @@ services:
 
   ollama:
     container_name: ollama
-    image: ollama/ollama
+    image: ollama/ollama:0.5.4
     entrypoint: ["/bin/sh", "/root/.ollama/run_ollama.sh"]
     ports:
       - "11434:11434"
