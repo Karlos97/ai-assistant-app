@@ -15,8 +15,8 @@ from decouple import config
 import os
 
 # Determine the environment
-ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')  # 'development' or 'production'
-DEBUG = os.getenv('DEBUG', 'false')  # 'development' or 'production'
+ENVIRONMENT = os.getenv("DJANGO_ENV", "development")  # 'development' or 'production'
+DEBUG = os.getenv("DEBUG", "false")  # 'development' or 'production'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,82 +27,81 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = config('DJANGO_SECRET_KEY', default='insecure-key-for-dev')
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="insecure-key-for-dev")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = ENVIRONMENT == 'development' and DEBUG == 'true'
+DEBUG = ENVIRONMENT == "development" and DEBUG == "true"
 
-if ENVIRONMENT == 'development':
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+if ENVIRONMENT == "development":
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
     CORS_ALLOW_ALL_ORIGINS = True
 else:  # Production
-    ALLOWED_HOSTS = ['portfolio.karlos97.pl']
+    ALLOWED_HOSTS = ["portfolio-ai-assistant.karlos97.pl"]
     CORS_ALLOWED_ORIGINS = [
         "https://portfolio.karlos97.pl",
     ]
 
 # Security Settings
-SECURE_SSL_REDIRECT = ENVIRONMENT == 'production'
-SECURE_HSTS_SECONDS = 31536000 if ENVIRONMENT == 'production' else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = ENVIRONMENT == 'production'
-SECURE_HSTS_PRELOAD = ENVIRONMENT == 'production'
+SECURE_HSTS_SECONDS = 31536000 if ENVIRONMENT == "production" else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = ENVIRONMENT == "production"
+SECURE_HSTS_PRELOAD = ENVIRONMENT == "production"
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SESSION_COOKIE_SECURE = ENVIRONMENT == 'production'
-CSRF_COOKIE_SECURE = ENVIRONMENT == 'production'
-X_FRAME_OPTIONS = 'DENY'
+SESSION_COOKIE_SECURE = ENVIRONMENT == "production"
+CSRF_COOKIE_SECURE = ENVIRONMENT == "production"
+X_FRAME_OPTIONS = "DENY"
 
 # Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'ollama',
-    'corsheaders',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "ollama",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'llmTranslationApp.urls'
+ROOT_URLCONF = "llmTranslationApp.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'llmTranslationApp.wsgi.application'
+WSGI_APPLICATION = "llmTranslationApp.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -112,16 +111,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -129,9 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -139,44 +138,43 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Logging Configuration
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'debug.log',
-            'formatter': 'verbose',
+    "handlers": {
+        "file": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "debug.log",
+            "formatter": "verbose",
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
         },
     },
 }
 
-# Cache Configuration
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
     }
 }
