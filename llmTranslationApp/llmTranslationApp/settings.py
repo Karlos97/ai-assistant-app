@@ -41,8 +41,18 @@ else:  # Production
         "https://portfolio.karlos97.pl",
     ]
 
-# Application definition
+# Security Settings
+SECURE_SSL_REDIRECT = ENVIRONMENT == 'production'
+SECURE_HSTS_SECONDS = 31536000 if ENVIRONMENT == 'production' else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = ENVIRONMENT == 'production'
+SECURE_HSTS_PRELOAD = ENVIRONMENT == 'production'
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = ENVIRONMENT == 'production'
+CSRF_COOKIE_SECURE = ENVIRONMENT == 'production'
+X_FRAME_OPTIONS = 'DENY'
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,11 +139,44 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
+# Cache Configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}

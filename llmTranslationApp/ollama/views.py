@@ -1,5 +1,6 @@
 from django.http import JsonResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers.json import DjangoJSONEncoder
 from .ollama_service import query_mistral
 import json
 
@@ -15,21 +16,27 @@ def mistral_chat(request):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON payload"}, status=400)
 
-        # Sanitize the prompt input
         if not isinstance(prompt, str) or not prompt.strip():
             return JsonResponse({"error": "Prompt is required and must be a non-empty string"}, status=400)
 
         def generate_response():
-            result = query_mistral(prompt)
+            try:
+                result = query_mistral(prompt)
+                if isinstance(result, dict) and "error" in result:
+                    yield f"Error: {result['error']}\n"
+                else:
+                    for chunk in result:
+                        if chunk:  # Only yield non-empty chunks
+                            yield f"{chunk}\n"
+            except Exception as e:
+                yield f"Error: {str(e)}\n"
 
-            if isinstance(result, dict) and "error" in result:
-                yield f"Error: {result['error']}\n"
-            else:
-                for chunk in result:
-                    yield chunk + "\n"
-
-        response = StreamingHttpResponse(generate_response(), content_type='text/plain')
+        response = StreamingHttpResponse(
+            generate_response(),
+            content_type='text/plain'
+        )
         response['Cache-Control'] = 'no-cache'
         return response
+
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
