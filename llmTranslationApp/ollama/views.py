@@ -1,4 +1,4 @@
-from django.http import JsonResponse, StreamingHttpResponse
+from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers.json import DjangoJSONEncoder
 from .ollama_service import query_mistral
@@ -7,6 +7,12 @@ import json
 
 @csrf_exempt
 def mistral_chat(request):
+    if request.method == "OPTIONS":
+        response = HttpResponse()
+        response["Access-Control-Allow-Headers"] = "Content-Type"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        return response
+
     if request.method == "POST":
         if request.content_type != "application/json":
             return JsonResponse(

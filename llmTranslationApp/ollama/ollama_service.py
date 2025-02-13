@@ -20,7 +20,7 @@ def query_mistral(prompt: str):
     payload = {"model": "mistral", "prompt": prompt}
 
     try:
-        with requests.post(url, json=payload, stream=True) as response:
+        with requests.post(url, json=payload, stream=True, timeout=60) as response:
             response.raise_for_status()
             for line in response.iter_lines():
                 if line:
