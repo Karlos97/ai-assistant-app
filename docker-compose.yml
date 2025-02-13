@@ -21,3 +21,5 @@ services:
       - "11434:11434"
     volumes:
       - ./ollama:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434

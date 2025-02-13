@@ -6,9 +6,9 @@ from .utils import check_microservice_health, MicroserviceHealthError
 OLLAMA_API_URL = config("OLLAMA_API_URL", default="http://localhost:11434")
 
 
-def query_mistral(prompt: str):
+def query_ai(prompt: str):
     """
-    Send a query to the Mistral model hosted by Ollama and stream the response in chunks.
+    Send a query to the AI model hosted by Ollama and stream the response in chunks.
     """
     try:
         check_microservice_health(f"{OLLAMA_API_URL}/")
@@ -17,7 +17,7 @@ def query_mistral(prompt: str):
         return
 
     url = f"{OLLAMA_API_URL}/api/generate"
-    payload = {"model": "mistral", "prompt": prompt}
+    payload = {"model": "deepseek-r1:1.5b", "prompt": prompt}
 
     try:
         with requests.post(url, json=payload, stream=True, timeout=60) as response:

@@ -32,6 +32,7 @@ source ./ai-translation-env/bin/activate
 
 ```sh
 cd ./llmTranslationApp
+pip install --no-cache-dir -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
@@ -39,7 +40,7 @@ python manage.py runserver
 Example prompt:
 
 ```sh
-curl -X POST http://localhost:8000/ollama/mistral-chat/ \
+curl -X POST http://localhost:8000/ollama/ai-model/ \
  -H "Content-Type: application/json" \
  -d '{"prompt": "Hello, could you tell my what is React.Js?"}'
 ```
@@ -56,7 +57,7 @@ curl -X POST http://localhost:8000/ollama/mistral-chat/ \
 Example prompt:
 
 ```sh
-curl -X POST http://localhost:8000/ollama/mistral-chat/ \
+curl -X POST http://localhost:8000/ollama/ai-model/ \
  -H "Content-Type: application/json" \
  -d '{"prompt": "Hello, could you tell my what is React.Js?"}'
 ```

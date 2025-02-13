@@ -1,12 +1,11 @@
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.serializers.json import DjangoJSONEncoder
-from .ollama_service import query_mistral
+from .ollama_service import query_ai
 import json
 
 
 @csrf_exempt
-def mistral_chat(request):
+def ai_model(request):
     if request.method == "OPTIONS":
         response = HttpResponse()
         response["Access-Control-Allow-Headers"] = "Content-Type"
@@ -33,7 +32,7 @@ def mistral_chat(request):
 
         def generate_response():
             try:
-                for chunk in query_mistral(prompt):
+                for chunk in query_ai(prompt):
                     if chunk:  # Only yield non-empty chunks
                         yield f"{chunk}\n"
             except Exception as e:
