@@ -12,7 +12,10 @@ services:
       - .env
     ports:
       - "8000:8000"
-
+    cpus: '0.5'          # Limit to 50% of a single CPU core
+    mem_limit: '512m'    # Limit RAM to 512MB
+    memswap_limit: '1g'  # Limit swap to 1GB
+    
   ollama:
     container_name: ollama
     image: ollama/ollama:0.5.4
@@ -23,3 +26,6 @@ services:
       - ./ollama:/root/.ollama
     environment:
       - OLLAMA_HOST=0.0.0.0:11434
+    cpus: '1'          # Limit to a single CPU core
+    mem_limit: '2g'    # Limit RAM to 2GB
+    memswap_limit: '1g'  # Limit swap to 1GB
