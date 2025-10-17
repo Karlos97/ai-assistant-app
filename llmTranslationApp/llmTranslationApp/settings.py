@@ -36,9 +36,9 @@ if ENVIRONMENT == "development":
     ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
     CORS_ALLOW_ALL_ORIGINS = True
 else:  # Production
-    ALLOWED_HOSTS = ["portfolio-ai-assistant.karlos97.pl"]
+    ALLOWED_HOSTS = ["portfolio-ai-assistant.karlos97.com.pl"]
     CORS_ALLOWED_ORIGINS = [
-        "https://portfolio.karlos97.pl",
+        "https://portfolio.karlos97.com.pl",
     ]
 
 # Security Settings
